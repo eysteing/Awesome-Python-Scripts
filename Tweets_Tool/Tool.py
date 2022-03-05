@@ -138,7 +138,7 @@ class TweetManager:
 					active = False
 					break
 
-		if receiveBuffer and len(resultsAux) > 0:
+		if receiveBuffer and resultsAux:
 			receiveBuffer(resultsAux)
 
 		return results
@@ -165,10 +165,9 @@ class TweetManager:
 		if hasattr(tweetCriteria, 'until'):
 			urlGetData += ' until:' + tweetCriteria.until
 
-		if hasattr(tweetCriteria, 'topTweets'):
-			if tweetCriteria.topTweets:
-				url = "https://twitter.com/i/search/timeline?q=%s&src=typd&max_position=%s"
-		url = url % (urllib.parse.quote(urlGetData), refreshCursor)
+		if hasattr(tweetCriteria, 'topTweets') and tweetCriteria.topTweets:
+			url = "https://twitter.com/i/search/timeline?q=%s&src=typd&max_position=%s"
+		url %= (urllib.parse.quote(urlGetData), refreshCursor)
 
 		headers = [('Host', "twitter.com"),
 		           ('User-Agent', "Mozilla/5.0 (Windows NT 6.1; Win64; x64)"),
@@ -198,9 +197,7 @@ class TweetManager:
 			    % urllib.parse.quote(urlGetData))
 			sys.exit()
 			return
-		dataJson = json.loads(jsonResponse)
-
-		return dataJson
+		return json.loads(jsonResponse)
 
 
 class TweetObtain:

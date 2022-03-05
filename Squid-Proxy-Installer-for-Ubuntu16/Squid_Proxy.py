@@ -3,10 +3,7 @@ import platform
 
 
 def squid():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     subprocess.call(["sudo", "apt-get", "update"])
     subprocess.call(["sudo", "apt-get", "install", "squid"])
     path = "/etc/{}/squid.conf".format(squid)
@@ -26,10 +23,7 @@ def squid():
 
 
 def add_pw():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     subprocess.call(["sudo", "apt-get", "install", "apache2-utils"])
     subprocess.call(["sudo", "touch", "/etc/{}/squid_passwd".format(squid)])
     subprocess.call(["sudo", "chown", "proxy", "/etc/{}/squid_passwd".format(squid)])
@@ -47,10 +41,7 @@ def add_pw():
 
 
 def change_pw():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     user = input("Username: ")
     subprocess.call(["sudo", "htpasswd", "/etc/{}/squid_passwd".format(squid), user])
     subprocess.call(["sudo", "service", squid, "restart"])
@@ -58,10 +49,7 @@ def change_pw():
 
 
 def remove_pw():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     os.remove("/etc/{}/squid_passwd".format(squid))
     path = "/etc/{}/squid.conf".format(squid)
     file = open(path).read()
@@ -74,16 +62,11 @@ def remove_pw():
 
 
 def uninstall_squid():
-    if platform.platform().find("Ubuntu-16.04"):
-        squid = "squid"
-    else:
-        squid = "squid3"
+    squid = "squid" if platform.platform().find("Ubuntu-16.04") else "squid3"
     del_sq = input("Are you sure? (y/n): ")
-    if del_sq == "y" or del_sq == "Y":
+    if del_sq in ["y", "Y"]:
         subprocess.call(["sudo", "apt-get", "purge", "--auto-remove", squid])
         print("Succesfully")
-    else:
-        pass
 
 while True:
     squid_select = input("""
@@ -106,5 +89,3 @@ while True:
         uninstall_squid()
     elif squid_select == "6":
         break
-    else:
-        pass

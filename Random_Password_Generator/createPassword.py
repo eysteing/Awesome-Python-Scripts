@@ -10,9 +10,9 @@ chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*(
 
 #2 for loops should be O(n²) runtime
 def create(number_of_passwords, pass_length):
-    for i in range(number_of_passwords):
+    for _ in range(number_of_passwords):
         list = [] # create new empty list
-        for i in range(pass_length):
+        for _ in range(pass_length):
             select = secrets.choice(chars) #the secret sauce to select a pseudo random character
             list.append(select) #add pseudo random char to list
         l = ''.join(list) #concatenate list to string for every ''

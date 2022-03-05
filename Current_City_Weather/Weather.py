@@ -2,16 +2,13 @@ import requests
 
 
 def get_temperature(json_data):
-    temp_in_celcius = json_data['main']['temp']
-    return temp_in_celcius
+    return json_data['main']['temp']
 
 def get_weather_type(json_data):
-    weather_type = json_data['weather'][0]['description']
-    return weather_type
+    return json_data['weather'][0]['description']
 
 def get_wind_speed(json_data):
-    wind_speed = json_data['wind']['speed']
-    return wind_speed
+    return json_data['wind']['speed']
 
 
 

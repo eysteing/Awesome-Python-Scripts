@@ -20,11 +20,7 @@ def atmospeheres_to_bars(atm: float, unit: str) -> Union[float, str]:
     ...
     ValueError: could not convert string to float: 'atmospheres'
     """
-    if unit == "atm":
-        bar = float(atm) * 1.01325
-        return bar
-    else:
-        return "Invalid unit"
+    return float(atm) * 1.01325 if unit == "atm" else "Invalid unit"
 
 
 def bars_to_atmospheres(bar: float, unit: str) -> Union[float, str]:
@@ -47,11 +43,7 @@ def bars_to_atmospheres(bar: float, unit: str) -> Union[float, str]:
     ValueError: could not convert string to float: 'barrs'
 
     """
-    if unit == "bar":
-        atm = float(bar) / 1.01325
-        return atm
-    else:
-        return "Invalid unit"
+    return float(bar) / 1.01325 if unit == "bar" else "Invalid unit"
 
 
 def atmospheres_to_milimeter_mercury(atm: float, unit: str) -> Union[float, str]:
@@ -73,11 +65,7 @@ def atmospheres_to_milimeter_mercury(atm: float, unit: str) -> Union[float, str]
     ...
     ValueError: could not convert string to float: 'atmos'
     """
-    if unit == "atm":
-        mm_hg = float(atm) * 760
-        return mm_hg
-    else:
-        return "Invalid unit"
+    return float(atm) * 760 if unit == "atm" else "Invalid unit"
 
 
 def milimeter_mercury_to_atmospheres(mm_hg: float, unit: str) -> Union[float, str]:
@@ -99,11 +87,7 @@ def milimeter_mercury_to_atmospheres(mm_hg: float, unit: str) -> Union[float, st
     ...
     ValueError: could not convert string to float: 'merc'
     """
-    if unit == "mmHg":
-        atm = float(mm_hg) / 760
-        return atm
-    else:
-        return "Invalid unit"
+    return float(mm_hg) / 760 if unit == "mmHg" else "Invalid unit"
 
 
 def atmospheres_to_pascals(atm: float, unit: str) -> Union[float, str]:
@@ -125,11 +109,7 @@ def atmospheres_to_pascals(atm: float, unit: str) -> Union[float, str]:
     ...
     ValueError: could not convert string to float: 'ats'
     """
-    if unit == "atm":
-        pa = float(atm) * 101325
-        return pa
-    else:
-        return "Invalid unit"
+    return float(atm) * 101325 if unit == "atm" else "Invalid unit"
 
 
 def pascals_to_atmospheres(pa: float, unit: str) -> Union[float, str]:
@@ -152,11 +132,7 @@ def pascals_to_atmospheres(pa: float, unit: str) -> Union[float, str]:
     ValueError: could not convert string to float: 'Pas'
     """
 
-    if unit == "Pa":
-        atm = float(pa) / 101325
-        return atm
-    else:
-        return "Invalid unit"
+    return float(pa) / 101325 if unit == "Pa" else "Invalid unit"
 
 
 def bars_to_milimeter_mercury(bar: float, unit: str) -> Union[float, str]:
@@ -179,8 +155,7 @@ def bars_to_milimeter_mercury(bar: float, unit: str) -> Union[float, str]:
     ValueError: could not convert string to float: 'brs'
     """
     if unit == "bar":
-        mm_hg = float(bar) * round(760 / 1.01325, 2)
-        return mm_hg
+        return float(bar) * round(760 / 1.01325, 2)
     else:
         return "Invalid unit"
 
@@ -205,8 +180,7 @@ def milimeter_mercury_to_bars(mm_hg: float, unit: str) -> Union[float, str]:
     ValueError: could not convert string to float: 'brs'
     """
     if unit == "mmHg":
-        bar = float(mm_hg) / round(760 / 1.01325, 2)
-        return bar
+        return float(mm_hg) / round(760 / 1.01325, 2)
     else:
         return "Invalid unit"
 
@@ -230,11 +204,7 @@ def bars_to_pascals(bar: float, unit: str) -> Union[float, str]:
     ...
     ValueError: could not convert string to float: 'bP'
     """
-    if unit == "bar":
-        pa = float(bar) * 100000
-        return pa
-    else:
-        return "Invalid unit"
+    return float(bar) * 100000 if unit == "bar" else "Invalid unit"
 
 
 def pascals_to_bars(pa: float, unit: str) -> Union[float, str]:
@@ -256,11 +226,7 @@ def pascals_to_bars(pa: float, unit: str) -> Union[float, str]:
     ...
     ValueError: could not convert string to float: 'pass'
     """
-    if unit == "Pa":
-        bar = float(pa) / 100000
-        return bar
-    else:
-        return "Invalid unit"
+    return float(pa) / 100000 if unit == "Pa" else "Invalid unit"
 
 
 def milimeter_mercury_to_pascals(mm_hg: float, unit: str) -> Union[float, str]:
@@ -283,8 +249,7 @@ def milimeter_mercury_to_pascals(mm_hg: float, unit: str) -> Union[float, str]:
     ValueError: could not convert string to float: 'mercurium'
     """
     if unit == "mmHg":
-        pa = float(mm_hg) * round(101325 / 760, 2)
-        return pa
+        return float(mm_hg) * round(101325 / 760, 2)
     else:
         return "Invalid unit"
 
@@ -308,11 +273,7 @@ def pascals_to_milimeter_mercury(pa: float, unit: str) -> Union[float, str]:
     ...
     ValueError: could not convert string to float: 'merc'
     """
-    if unit == "Pa":
-        mm_hg = float(pa) / round(101325 / 760, 2)
-        return mm_hg
-    else:
-        return "Invalid unit"
+    return float(pa) / round(101325 / 760, 2) if unit == "Pa" else "Invalid unit"
 
 
 if __name__ == "__main__":
