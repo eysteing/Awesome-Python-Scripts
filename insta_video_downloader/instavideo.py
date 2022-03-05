@@ -5,7 +5,6 @@ import re
 import sys
 
 def download(post_id):
-    multiple_posts = False
     videos = []
     data = requests.get("https://instagram.com/p/{}".format(post_id))
     if data.status_code == 404:
@@ -13,8 +12,7 @@ def download(post_id):
         sys.exit()
     json_data = json.loads(re.findall(r'window._sharedData\s=\s(\{.*\});</script>', data.text)[0])
     data = json_data['entry_data']['PostPage'][0]['graphql']['shortcode_media']
-    if 'edge_sidecar_to_children' in data.keys():
-        multiple_posts = True
+    multiple_posts = 'edge_sidecar_to_children' in data.keys()
     caption = data['edge_media_to_caption']['edges'][0]['node']['text']
     media_url = data['display_resources'][2]['src']
     is_video = data['is_video']
@@ -24,9 +22,12 @@ def download(post_id):
     if is_video:
         videos.append(data['video_url'])
     if multiple_posts:
-        for post in data['edge_sidecar_to_children']['edges']:
-            if post['node']['is_video']:
-                videos.append(post['node']['video_url'])
+        videos.extend(
+            post['node']['video_url']
+            for post in data['edge_sidecar_to_children']['edges']
+            if post['node']['is_video']
+        )
+
     print("Found total {} videos".format(len(videos)))
     for no, video in zip(list(range(len(videos))), videos):
         print("Downloading video {}".format(no))

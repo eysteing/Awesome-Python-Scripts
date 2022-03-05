@@ -34,7 +34,7 @@ def escape_illegal(name):
     """ Escape illegal symbols for LaTeX """
     illegal_char_array = ['\\', '&', '%', '$', '#', '_', '{', '}', '~', '^']
     for char in illegal_char_array:
-        name = name.replace(char, "\\" + char)
+        name = name.replace(char, f"\\{char}")
     return name
 
 

@@ -17,7 +17,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.cur2 = 'USD'
         self.result = ''
         # Connect buttons
-        for n in range(0, 10):
+        for n in range(10):
             getattr(self, 'pushButton_n%s' % n).clicked.connect(self.digit_pressed)
         self.pushButton_n10.clicked.connect(self.decimal_point)
         self.pushButton_del.clicked.connect(self.del_digit)
@@ -34,10 +34,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.label_1.setText(str(int(self.new_label)))
 
     def decimal_point(self):
-        if '.' in self.label_1.text():
-            pass
-        else:
-            self.label_1.setText(self.label_1.text() + '.')
+        if '.' not in self.label_1.text():
+            self.label_1.setText(f'{self.label_1.text()}.')
 
     def del_digit(self):
         self.new_label = self.new_label[:-1]
@@ -57,9 +55,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         resp = requests.get(api_link)
         # print(r.status_code)
         data = json.loads(resp.content)
-        # print(data)
-        var = data[self.cur1][self.cur2]
-        return var
+        return data[self.cur1][self.cur2]
 
     def convert_fun(self):
         try:
@@ -68,12 +64,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.label_2.setText('0')
             if '.' in self.new_label:
                 self.result = float(self.new_label) * self.api(self.cur1, self.cur2)
-                self.result = round(self.result, 2)
-                self.label_2.setText(str(self.result))
             else:
                 self.result = int(self.new_label) * self.api(self.cur1, self.cur2)
-                self.result = round(self.result, 2)
-                self.label_2.setText(str(self.result))
+            self.result = round(self.result, 2)
+            self.label_2.setText(str(self.result))
         except (KeyError, ValueError):
             pass
         except requests.exceptions.ConnectionError:

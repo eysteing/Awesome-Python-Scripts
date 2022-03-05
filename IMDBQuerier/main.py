@@ -7,8 +7,7 @@ from parser_config import check_film_object, watched_included
 from html_creator import create_html_file
 
 def get_watched_films(file_path):
-    watched_films_txt = open(file_path, 'r')
-    if watched_films_txt:
+    if watched_films_txt := open(file_path, 'r'):
         watched_names = watched_films_txt.read().split('\n')
         return [names  for names in watched_names if names != '']
     return None

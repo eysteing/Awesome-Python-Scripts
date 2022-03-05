@@ -51,7 +51,7 @@ class SubDownloader:
             if(response.status_code != 200):
                 raise ManualError("*** Error downloading subtitle for {} ***".format(filename))
 
-            with open(splitted[0] + ".srt", "w") as sub:
+            with open(f'{splitted[0]}.srt', "w") as sub:
                 """
                 for chunk in response.iter_content(chunk_size=1024):
                     if chunk:

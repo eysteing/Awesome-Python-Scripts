@@ -23,13 +23,15 @@ def get_snapshot_listing(options):
     )
     if options.noop:
         return url
-    else:
-        #do the real stuff
-        r = requests.get(url)
-        if r.status_code == 200:
-            return r.text
-        else:
-            return "Error in making request.  received {}: {}".format(r.status_code, r.text)
+    #do the real stuff
+    r = requests.get(url)
+    return (
+        r.text
+        if r.status_code == 200
+        else "Error in making request.  received {}: {}".format(
+            r.status_code, r.text
+        )
+    )
 
 
 def create_snapshot(options):
@@ -44,7 +46,7 @@ def create_snapshot(options):
 
     indexname = options.index_name
     period = options.period
-    timestamp = dt.datetime.today().strftime('%Y%m%d_%H%M')
+    timestamp = dt.datetime.now().strftime('%Y%m%d_%H%M')
     # use special testing period for indices to snapshot if defined
     if 'testing' in options and options.testing:
         indices = indexname
@@ -97,7 +99,7 @@ def restore_snapshot(options):
 
 def check_snapshot_inprogress(options):
     snapshot_list = get_snapshot_listing(options)
-    for line in [line for line in snapshot_list.split('\n')]:
+    for line in list(snapshot_list.split('\n')):
         if 'IN_PROGRESS' in line.split():
             if options.verbose:
                 print("snapshot in progress: {}".format(line))
